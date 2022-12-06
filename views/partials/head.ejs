@@ -1,0 +1,59 @@
+<meta charset="UTF-8">
+<title>EJS Is Fun</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- CSS (load bootstrap from a CDN) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyALSK54R03SHmfS5hgBE5-kAq-CaNfFCQw",
+    authDomain: "uicdn-e04e1.firebaseapp.com",
+    projectId: "uicdn-e04e1",
+    storageBucket: "uicdn-e04e1.appspot.com",
+    messagingSenderId: "424822618197",
+    appId: "1:424822618197:web:172b7ae6465a0835443cdc",
+    measurementId: "G-K1MD6KMEGT"
+  });
+</script>
+<script>
+const db = firebase.firestore();
+
+      db.collection('products').get().then((doc)=>{
+              doc.forEach((ref)=>{
+                console.log(ref.data());
+                db.collection("categories").doc(ref.data().prod_category).get().then((catRef)=>{
+
+                    $("#abc").append(`<tr>
+                        <td>${ref.id}</td>
+                        <td>${ref.data().prod_name}</td>
+                        <td>${ref.data().prod_price}</td>
+                        <td>${catRef.data().categ_name}</td>
+                        <td>
+                          <a href="editp/${ref.id}">Edit</a>
+                          <a href="delp/${ref.id}">Delete</a>
+                          </td> 
+                        </tr>`)
+                }).catch((error)=> console.log("error"));     
+              })
+          })
+</script>
+<script>
+
+      db.collection('categories').get().then((doc)=>{
+              doc.forEach((ref)=>{
+                $("#cat").append(`<tr>
+       <td>${ref.id}</td>
+       <td>${ref.data().categ_name}</td>
+      
+       <td>${ref.data().categ_desc}</td>
+      </tr>`)
+             
+
+              })
+          })
+</script>
+<style>
+  body { padding-top:50px; }
+</style>

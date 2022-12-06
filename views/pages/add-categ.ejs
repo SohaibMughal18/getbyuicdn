@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header' , {variant: 'compact'}); %>
+</header>
+
+<main>
+<div class ="jumbotron">
+   <h1>Add your category's Detail</h1>
+<form method="post">
+<table>
+    <tr>
+        <td> Name:</td>
+             <td>
+                <input type ="text" placeholder="Category Name" name="categ_name" required>
+             </td>
+    </tr>
+    <tr>
+    <td>Description  :</td>
+         <td>
+            <input type ="text" placeholder="Category Price" name="categ_desc" required>
+         </td>
+   </tr>
+   
+    <td>
+        <input type="submit">
+      
+    </td>
+   </tr>
+</table>
+</form>
+
+</div>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

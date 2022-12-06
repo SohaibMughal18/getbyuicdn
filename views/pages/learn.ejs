@@ -1,0 +1,37 @@
+// many to one relation in edit form for editing with showing last selected option against category
+<script>
+var docID = "<%= id %>"
+db.collection("products").doc(docID).get().then((doc)=>{
+    db.collection("categories").get().then((ref)=>{
+        ref.forEach((docss)=>{           
+        $("#prod_name").val(doc.data().prod_name);
+        $("#prod_price").val(doc.data().prod_price);
+        $("#prod_categ").append(`<option value="${docss.id}" ${docss.id == doc.data().prod_category ? "selected" : ""}>${docss.data().categ_name}</option>`)
+
+    })
+    })
+    
+})
+</script>
+
+// to save results from amny to one relationship 
+<script>
+    const db = firebase.firestore();
+    
+          db.collection('products').get().then((doc)=>{
+                  doc.forEach((ref)=>{
+                    db.collection("categories").doc(ref.data().prod_category).get().then((catRef)=>{
+                        $("#abc").append(`<tr>
+                            <td>${ref.id}</td>
+                            <td>${ref.data().prod_name}</td>
+                            <td>${ref.data().prod_price}</td>
+                            <td>${catRef.data().categ_name}</td>
+                            <td>
+                              <a href="editp/${ref.id}">Edit</a>
+                              <a href="delp/${ref.id}">Delete</a>
+                              </td> 
+                            </tr>`)
+                    })     
+                  })
+              })
+    </script>

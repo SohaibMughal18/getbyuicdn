@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header' , {variant: 'compact'}); %>
+</header>
+
+<main>
+<div class ="jumbotron">
+   <h1>Add your product's Detail</h1>
+<form method="post">
+<table>
+   <tr>
+    <td>Name  :</td>
+         <td>
+            <input type ="text" placeholder="Product Name" name="prod_name" required>
+         </td>
+   </tr>
+   <tr>
+    <td>Price  :</td>
+         <td>
+            <input type ="text" placeholder="Product Price" name="prod_price" required>
+         </td>
+   </tr>
+   <tr>
+    <td>Category :</td>
+         <td>
+            <select name="prod_category" id="categ"  required>
+              <!-- <option value="1st">1st class</option>
+              <option value="ave">average</option>
+              <option value="out">out-dated</option> -->
+            
+            </select>
+         </td>
+   </tr>
+
+   
+
+    <td>
+        <input type="submit">
+      
+    </td>
+   </tr>
+</table>
+</form>
+
+</div>
+</main>
+<script>   
+   db.collection("categories").get().then((doc)=>{
+      doc.forEach((ref)=>{
+         $("#categ").append(`<option value="${ref.id}">${ref.data().categ_name}</option>`)
+      })
+   })
+</script>
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
